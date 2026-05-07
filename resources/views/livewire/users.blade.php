@@ -1,3 +1,3 @@
 <div>
-    <h1 class="text-3xl font-semibold">Users Page</h1>
+    <h1 class="text-3xl font-semibold">{{ $title }}</h1>
 </div>
