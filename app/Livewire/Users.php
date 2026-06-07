@@ -22,6 +22,8 @@ class Users extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
+
+        $this->reset();
     }
 
     public function render()
