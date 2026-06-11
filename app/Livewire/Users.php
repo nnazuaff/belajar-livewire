@@ -13,6 +13,8 @@ class Users extends Component
 {
     use WithFileUploads, WithPagination;
 
+    public $query = '';
+
     #[Validate('required|min:3')]
     public $name = '';
 
@@ -24,6 +26,16 @@ class Users extends Component
 
     #[Validate('nullable|image|max:1000')]
     public $avatar = null;
+
+    public function updatedQuery()
+    {
+        $this->resetPage();
+    }
+
+    public function search()
+    {
+        $this->resetPage();
+    }
 
     // public $title = 'Users Page';
     public function createNewUser()
@@ -50,7 +62,9 @@ class Users extends Component
     {
         return view('livewire.users', [
             'title' => 'Users Page',
-            'users' => User::latest()->paginate(6),
+            'users' => User::latest()
+                ->where('name', 'like', "%{$this->query}%")
+                ->paginate(6),
         ]);
 
     }
