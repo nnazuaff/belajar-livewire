@@ -29,7 +29,7 @@
                     <div class="mt-2">
                         <input wire:model="email" id="email" type="email" name="email" autocomplete="email"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-                        @error('name')
+                        @error('email')
                             <p class="mt-2.5 text-xs text-red-600"><span class="font-medium">{{ $message }}</p>
                         @enderror
                     </div>
@@ -44,7 +44,7 @@
                         <input wire:model="password" id="password" type="password" name="password"
                             autocomplete="current-password"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-                        @error('name')
+                        @error('password')
                             <p class="mt-2.5 text-xs text-red-600"><span class="font-medium">{{ $message }}</p>
                         @enderror
                     </div>
@@ -72,10 +72,15 @@
                             <p class="text-xs/5 text-gray-400">PNG, JPG, up to 5MB</p>
                         </div>
                     </div>
-                    @error('name')
+                    @error('avatar')
                         <p class="mt-2.5 text-xs text-red-600"><span class="font-medium">{{ $message }}</p>
                     @enderror
                 </div>
+
+                @if ($avatar && !$errors->has('avatar'))
+                    <p class="my-2 text-sm/6 font-medium">Preview</p>
+                    <img src="{{ $avatar->temporaryUrl() }}" class="rounded w-20 h-20 block object-cover">
+                @endif
 
                 <div>
                     <button wire:click.prevent="createNewUser" type="button"

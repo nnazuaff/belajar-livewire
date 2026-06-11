@@ -21,8 +21,8 @@ class Users extends Component
     #[Validate('required|min:3')]
     public $password = '';
 
-    #[Validate('image|max:5000')]
-    public $avatar = '';
+    #[Validate('nullable|image|max:1000')]
+    public $avatar = null;
 
     // public $title = 'Users Page';
     public function createNewUser()
