@@ -7,13 +7,10 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\WithPagination;
 
-class Users extends Component
+class UserRegisterForm extends Component
 {
-    use WithFileUploads, WithPagination;
-
-    public $query = '';
+    use WithFileUploads;
 
     #[Validate('required|min:3')]
     public $name = '';
@@ -27,17 +24,6 @@ class Users extends Component
     #[Validate('nullable|image|max:1000')]
     public $avatar = null;
 
-    public function updatedQuery()
-    {
-        $this->resetPage();
-    }
-
-    public function search()
-    {
-        $this->resetPage();
-    }
-
-    // public $title = 'Users Page';
     public function createNewUser()
     {
 
@@ -55,17 +41,13 @@ class Users extends Component
         ]);
 
         $this->reset();
+
         session()->flash('success', 'User has been successfully created.');
+        $this->dispatch('user-created');
     }
 
     public function render()
     {
-        return view('livewire.users', [
-            'title' => 'Users Page',
-            'users' => User::latest('created_at')
-                ->where('name', 'like', "%{$this->query}%")
-                ->paginate(6),
-        ]);
-
+        return view('livewire.user-register-form');
     }
 }
